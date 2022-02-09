@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Assessment - Progress Bars</title>
+  <style type="text/css">
+    .main-wrapper{
+      font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    .progress-wrapper{
+      width: 100%;
+      height: 20px;
+      background-color: #ebebeb;
+      border-radius: 10px;
+      display: flex;
+      margin-bottom: 30px;
+    }
+
+    .progress-wrapper .progress-bar{
+      background-color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: right;
+      border-radius: 10px;
+      box-shadow: 0 0 1px 1px rgba(0,0,0,0.2);
+      width: 50%;
+      overflow: hidden;
+      transition: width 250ms ease-in-out;
+    }
+    .progress-text{
+      padding-right: 8px;
+      color: #696969;
+      text-shadow: 0 0 rgba(0,0,0,0.2);
+    }
+    .progress-wrapper.theme-green .progress-bar{
+      background-color: #a2d859;
+      box-shadow: 0 0 1px 1px #b0cb8d;
+    }
+    .progress-wrapper.theme-red .progress-bar{
+      background-color: #ff9284;
+      box-shadow: 0 0 1px 1px #a7514c;
+    }
+    .progress-wrapper.theme-blue .progress-bar{
+      background-color: #7cc4f4;
+      box-shadow: 0 0 1px 1px #538eb6;
+    }
+    .progress-wrapper.theme-yellow .progress-bar{
+      background-color: #ffce5d;
+      box-shadow: 0 0 1px 1px #c59b3f;
+    }
+  </style>
+</head>
+<body>
+<div class="main-wrapper">
+  <div class="progress-wrapper theme-green">
+    <div class="progress-bar">
+      <span class="progress-text">50%</span>
+    </div>
+  </div>
+  <div class="progress-wrapper theme-red">
+    <div class="progress-bar">
+      <span class="progress-text">50%</span>
+    </div>
+  </div>
+  <div class="progress-wrapper">
+    <div class="progress-bar">
+      <span class="progress-text">50%</span>
+    </div>
+  </div>
+  <div class="progress-wrapper theme-blue">
+    <div class="progress-bar">
+      <span class="progress-text">50%</span>
+    </div>
+  </div>
+  <div class="progress-wrapper theme-yellow">
+    <div class="progress-bar">
+      <span class="progress-text">50%</span>
+    </div>
+  </div>
+  <button id="triggerProgress">Start</button>
+</div>
+<!-- partial -->
+  <script type="text/javascript">
+    (function(){
+  var handleClick = function(evt){
+    evt.preventDefault();
+    var progessWrap = document.querySelectorAll(".progress-wrapper");
+    var progessBars = document.querySelectorAll(".progress-bar");
+    progress = 0;
+    var intVar = window.setInterval(function(){
+      if(progress > 100) {
+        window.clearInterval(intVar);
+        Array.prototype.map.call(progessBars, function(c, i){
+          c.querySelector('.progress-text').innerText = "100%";
+          c.style.width = "100%";
+        });
+        return;
+      };
+      Array.prototype.map.call(progessBars, function(c, i){
+        if(progress === 0) {
+          progessWrap[i].style.overflow = "hidden";
+        } else {
+          progessWrap[i].style.overflow = "visible";
+        }
+        c.querySelector('.progress-text').innerText = progress +"%";
+        c.style.width = progress +"%";
+      });
+      progress += 10;
+    }, 500);
+  };
+  var button = document.querySelector("#triggerProgress");
+  button.addEventListener("click",handleClick)
+})();
+  </script>
+</body>
+</html>
